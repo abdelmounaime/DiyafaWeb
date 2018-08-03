@@ -52,7 +52,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+       return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -77,16 +77,16 @@ class RegisterController extends Controller
         $newPost = $database
             ->getReference('users')
             ->push([
-                'country' => 'country101',
+                'country' => $data['country'],
                   'email' => $data['email'],
-                  "firstName" => "firstName1",
+                  "firstName" => $data['firstname'],
                   "lastName" => $data['name'],
-                  "password" => "password101",
+                  "password" => $data['password'],
                   "id" => null,
-                  "phone" => "phone101",
+                  "phone" => $data['number'],
                   "region" => "region101",
                   "residence" => "residence101",
-                  "userName" => "userName101"
+                  "userName" => $data['name']
             ]);
         $newid = $newPost->getKey();
         $database->getReference('users/'.$newid.'/id')->set($newid);
